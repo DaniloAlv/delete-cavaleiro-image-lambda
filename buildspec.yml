@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            dotnet: 8.0
+        commands: 
+            - echo "Installing .NET 8 ..."
+    build:
+        commands:
+            - dotnet restore remove-image-for-deleted-cavaleiro.sln
+            - dotnet build remove-image-for-deleted-cavaleiro.sln
+            - cd test/remove-image-for-deleted-cavaleiro.Tests
+            - dotnet test
+    post_build: 
+        commands:
+            - echo "The application build was successful!"
+            
