@@ -8,13 +8,15 @@ phases:
             - echo "Installing .NET 6 ..."
     build:
         commands:
-            - dotnet restore remove-image-for-deleted-cavaleiro.sln
-            - dotnet build remove-image-for-deleted-cavaleiro.sln
+            - dotnet restore
+            - dotnet build
             - cd test/remove-image-for-deleted-cavaleiro.Tests
             - dotnet test
+            - cd ../..
     post_build: 
         commands:
-            - dotnet publish -r linux-x64 src/remove-image-for-deleted-cavaleiro/remove-image-for-deleted-cavaleiro.csproj
+            - cd src/remove-image-for-deleted-cavaleiro
+            - dotnet publish -r linux-x64
             - echo "The application build and publish was successful!"
 artifacts:
     files:
