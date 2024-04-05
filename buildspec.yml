@@ -3,9 +3,9 @@ version: 0.2
 phases:
     install:
         runtime-versions:
-            dotnet: 8.0
+            dotnet: 6.0
         commands: 
-            - echo "Installing .NET 8 ..."
+            - echo "Installing .NET 6 ..."
     build:
         commands:
             - dotnet restore remove-image-for-deleted-cavaleiro.sln
