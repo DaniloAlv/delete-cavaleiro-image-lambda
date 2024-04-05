@@ -14,5 +14,10 @@ phases:
             - dotnet test
     post_build: 
         commands:
-            - echo "The application build was successful!"
+            - dotnet publish -r linux-x64 src/remove-image-for-deleted-cavaleiro/remove-image-for-deleted-cavaleiro.csproj
+            - echo "The application build and publish was successful!"
+artifacts:
+    files:
+        - 'src/remove-image-for-deleted-cavaleiro/bin/Debug/net6.0/linux-x64/publish/**/*'
+    discard-paths: yes
             
