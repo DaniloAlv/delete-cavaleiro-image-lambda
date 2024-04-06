@@ -1,0 +1,10 @@
+version: 0.0
+
+Resources:
+  - Remove-Image-For-Deleted-Cavaleiro:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: Remove-Image-For-Deleted-Cavaleiro
+        Alias: remove-image
+        CurrentVersion: 1
+        TargetVersion: 1
