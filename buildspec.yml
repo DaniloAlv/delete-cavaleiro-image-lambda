@@ -21,5 +21,6 @@ phases:
 artifacts:
     files:
         - 'src/remove-image-for-deleted-cavaleiro/bin/Debug/net6.0/linux-x64/publish/**/*'
+        - 'appspec.yml'
     discard-paths: yes
             
