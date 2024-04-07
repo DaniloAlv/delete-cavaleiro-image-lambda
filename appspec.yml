@@ -6,5 +6,5 @@ Resources:
       Properties:
         Name: Remove-Image-For-Deleted-Cavaleiro
         Alias: prod
-        CurrentVersion: $LATEST
-        TargetVersion: 1
+        CurrentVersion: 2
+        TargetVersion: 3
