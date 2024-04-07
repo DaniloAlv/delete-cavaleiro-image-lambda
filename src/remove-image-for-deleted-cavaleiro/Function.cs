@@ -17,7 +17,8 @@ public class Function
             context.Logger.LogInformation($"Event ID: {record.EventID}");
             context.Logger.LogInformation($"Event Name: {record.EventName}");
             
-            // TODO: Add business logic processing the record.Dynamodb object.
+            context.Logger.LogInformation($"Old Image: {record.Dynamodb.OldImage}");
+            context.Logger.LogInformation($"New Image: {record.Dynamodb.NewImage}");
         }
 
         context.Logger.LogInformation("Stream processing complete.");

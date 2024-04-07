@@ -7,4 +7,4 @@ Resources:
         Name: Remove-Image-For-Deleted-Cavaleiro
         Alias: prod
         CurrentVersion: 2
-        TargetVersion: 2
+        TargetVersion: 3
