@@ -1,5 +1,6 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.DynamoDBEvents;
+using static Amazon.Lambda.DynamoDBEvents.DynamoDBEvent;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -17,8 +18,11 @@ public class Function
             context.Logger.LogInformation($"Event ID: {record.EventID}");
             context.Logger.LogInformation($"Event Name: {record.EventName}");
             
-            context.Logger.LogInformation($"Old Image: {record.Dynamodb.OldImage}");
-            // context.Logger.LogInformation($"New Image: {record.Dynamodb.NewImage}");
+            record.Dynamodb.OldImage.TryGetValue("Message", out AttributeValue attributeValueOld);
+            context.Logger.LogInformation($"Old Image: {attributeValueOld}");
+
+            record.Dynamodb.NewImage.TryGetValue("Message", out AttributeValue attributeValueNew);
+            context.Logger.LogInformation($"New Image: {attributeValueNew}");
         }
 
         context.Logger.LogInformation("Stream processing complete.");
