@@ -18,7 +18,7 @@ public class Function
             context.Logger.LogInformation($"Event Name: {record.EventName}");
             
             context.Logger.LogInformation($"Old Image: {record.Dynamodb.OldImage}");
-            context.Logger.LogInformation($"New Image: {record.Dynamodb.NewImage}");
+            // context.Logger.LogInformation($"New Image: {record.Dynamodb.NewImage}");
         }
 
         context.Logger.LogInformation("Stream processing complete.");
