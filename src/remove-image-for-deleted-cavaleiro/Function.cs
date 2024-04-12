@@ -43,9 +43,8 @@ public class Function
             {
                 context.Logger.LogError($"Something it's wrong! It was not possible deleted the image: {exception.Message}");                
             }
-
         }
-        
+
         context.Logger.LogInformation("Stream processing complete.");
     }
 
@@ -60,24 +59,12 @@ public class Function
         Dictionary<string, AttributeValue> attributes = new Dictionary<string, AttributeValue>{};
         foreach (var item in attributeValue)
         {
-            attributes.TryAdd(item.Key, MappingDynamoDBEventAttributeValueToDynamoDbV2AttributeValue(item.Value));
+            attributes.TryAdd(item.Key, MappingDynamoDBEventAttributeValueToDynamoDbV2AttributeValue(item.Value.S));
         }
 
         return attributes;
     }
 
-    private AttributeValue MappingDynamoDBEventAttributeValueToDynamoDbV2AttributeValue(DynamoDBEvent.AttributeValue attributeValue)
-    {
-        return new AttributeValue
-        {
-            B = attributeValue.B, 
-            BOOL = attributeValue.BOOL.Value,
-            BS = attributeValue.BS,
-            S = attributeValue.S,
-            SS = attributeValue.SS,
-            N = attributeValue.N,
-            NULL = attributeValue.NULL.Value,
-            NS = attributeValue.NS,
-        };
-    }
+    private AttributeValue MappingDynamoDBEventAttributeValueToDynamoDbV2AttributeValue(string value) => new AttributeValue(value);
+
 }

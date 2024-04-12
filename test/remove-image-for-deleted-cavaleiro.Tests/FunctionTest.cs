@@ -1,18 +1,26 @@
 using Xunit;
-
-
 using Amazon.Lambda.DynamoDBEvents;
 using Amazon.Lambda.TestUtilities;
-
-
-
+using Moq;
+using Infrastructure.Interfaces;
 
 namespace remove_image_for_deleted_cavaleiro.Tests;
 
 public class FunctionTest
 {
+    private readonly Mock<IS3Service> _s3Service;
+    
+    public FunctionTest()
+    {
+        _s3Service = new Mock<IS3Service>();
+        _s3Service.Setup(s3 => s3.RemoveItem(
+            It.Is<string>(s => !string.IsNullOrEmpty(s)), 
+            It.Is<string>(s => !string.IsNullOrEmpty(s))
+        ));
+    }
+
     [Fact]
-    public void TestFunction()
+    public async Task TestFunction()
     {
         DynamoDBEvent evnt = new DynamoDBEvent
         {
@@ -25,8 +33,16 @@ public class FunctionTest
                     {
                         ApproximateCreationDateTime = DateTime.Now,
                         Keys = new Dictionary<string, DynamoDBEvent.AttributeValue> { {"id", new DynamoDBEvent.AttributeValue { S = "MyId" } } },
-                        NewImage = new Dictionary<string, DynamoDBEvent.AttributeValue> { { "field1", new DynamoDBEvent.AttributeValue { S = "NewValue" } }, { "field2", new DynamoDBEvent.AttributeValue { S = "AnotherNewValue" } } },
-                        OldImage = new Dictionary<string, DynamoDBEvent.AttributeValue> { { "field1", new DynamoDBEvent.AttributeValue { S = "OldValue" } }, { "field2", new DynamoDBEvent.AttributeValue { S = "AnotherOldValue" } } },
+                        NewImage = new Dictionary<string, DynamoDBEvent.AttributeValue> 
+                        { 
+                            { "field1", new DynamoDBEvent.AttributeValue { S = "NewValue" } }, 
+                            { "field2", new DynamoDBEvent.AttributeValue { S = "AnotherNewValue" } } 
+                        },
+                        OldImage = new Dictionary<string, DynamoDBEvent.AttributeValue> 
+                        { 
+                            { "field1", new DynamoDBEvent.AttributeValue { S = "OldValue" } }, 
+                            { "field2", new DynamoDBEvent.AttributeValue { S = "AnotherOldValue" } } 
+                        },
                         StreamViewType = "NEW_AND_OLD_IMAGES"
                     }
                 }
@@ -34,9 +50,9 @@ public class FunctionTest
         };
 
         var context = new TestLambdaContext();
-        var function = new Function();
+        var function = new Function(_s3Service.Object);
 
-        function.FunctionHandler(evnt, context);
+        await function.FunctionHandler(evnt, context);
 
         var testLogger = context.Logger as TestLambdaLogger;
         Assert.Contains("Stream processing complete", testLogger?.Buffer.ToString());
