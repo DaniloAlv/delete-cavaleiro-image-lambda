@@ -24,7 +24,7 @@ public class Function
         _dynamodbContext = new DynamoDBContext(new AmazonDynamoDBClient());
     }
 
-    public async void FunctionHandler(DynamoDBEvent dynamoEvent, ILambdaContext context)
+    public async Task FunctionHandler(DynamoDBEvent dynamoEvent, ILambdaContext context)
     {
         foreach (var record in dynamoEvent.Records)
         {
@@ -43,8 +43,9 @@ public class Function
             {
                 context.Logger.LogError($"Something it's wrong! It was not possible deleted the image: {exception.Message}");                
             }
-        }
 
+        }
+        
         context.Logger.LogInformation("Stream processing complete.");
     }
 
