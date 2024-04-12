@@ -34,10 +34,15 @@ public class Function
             var dictionaryToAttributeValue = ConvertDictionaryToDictionary(record.Dynamodb.OldImage);
             var cavaleiro = ConvertDocumentToObject(dictionaryToAttributeValue);
 
-            var response = await _s3Service.RemoveItem(BUCKET_NAME, cavaleiro.ReferenciaImagem);
-
-            if (response) context.Logger.LogInformation("Image was deleted successful!");
-            else context.Logger.LogError("Something it's wrong! It was not possible deleted the image.");
+            try
+            {
+                await _s3Service.RemoveItem(BUCKET_NAME, cavaleiro.ReferenciaImagem);
+                context.Logger.LogInformation("Image was deleted successful!");
+            }
+            catch (Exception exception)
+            {
+                context.Logger.LogError($"Something it's wrong! It was not possible deleted the image: {exception.Message}");                
+            }
         }
 
         context.Logger.LogInformation("Stream processing complete.");

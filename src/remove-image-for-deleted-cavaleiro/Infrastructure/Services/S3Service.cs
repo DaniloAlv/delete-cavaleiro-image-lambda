@@ -1,4 +1,3 @@
-using System.Net;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Infrastructure.Interfaces;
@@ -14,7 +13,7 @@ public class S3Service : IS3Service
         _amazonS3 = amazonS3;
     }
 
-    public async Task<bool> RemoveItem(string bucketName, string keyObject)
+    public async Task RemoveItem(string bucketName, string keyObject)
     {
         var deleteObjectRequest = new DeleteObjectRequest
         {
@@ -22,8 +21,6 @@ public class S3Service : IS3Service
             Key = keyObject
         };
 
-        var deleteObjectResponse = await _amazonS3.DeleteObjectAsync(deleteObjectRequest);
-
-        return deleteObjectResponse.HttpStatusCode == HttpStatusCode.NoContent;
+        await _amazonS3.DeleteObjectAsync(deleteObjectRequest);
     }
 }
