@@ -2,6 +2,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
+using Amazon.Lambda.Annotations;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.DynamoDBEvents;
 using Domain.Entities;
@@ -24,6 +25,7 @@ public class Function
         _dynamodbContext = new DynamoDBContext(new AmazonDynamoDBClient());
     }
 
+    [LambdaFunction]
     public async Task FunctionHandler(DynamoDBEvent dynamoEvent, ILambdaContext context)
     {
         foreach (var record in dynamoEvent.Records)

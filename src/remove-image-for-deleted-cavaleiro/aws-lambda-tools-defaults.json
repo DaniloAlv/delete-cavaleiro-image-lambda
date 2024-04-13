@@ -11,5 +11,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 512,
   "function-timeout": 30,
-  "function-handler": "remove-image-for-deleted-cavaleiro::remove_image_for_deleted_cavaleiro.Function::FunctionHandler"
+  "function-handler": "remove-image-for-deleted-cavaleiro::remove_image_for_deleted_cavaleiro.Function_FunctionHandler_Generated::FunctionHandler"
 }

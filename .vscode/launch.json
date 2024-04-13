@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: remove-image-for-deleted-cavaleiro.Tests",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\test\\remove-image-for-deleted-cavaleiro.Tests\\remove-image-for-deleted-cavaleiro.Tests.csproj",
+            "launchConfigurationId": "TargetFramework=;remove-image-for-deleted-cavaleiro.Tests"
+        }
+    ]
+}
